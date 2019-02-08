@@ -7,13 +7,21 @@ class DNA_String{
     public:
         DNA_String(string file);
         ~DNA_String();
+        bool collectData();
+
         
     private:
-        void countNucleotides();
-        bool calculateStringStats() 
+        bool file_is_open();
+        bool calculateStringStats();
         bool generate();
 
+        string trimString(string s);
+
+        ifstream stream;
+        bool file_is_open;
+
         int countStrings = 0;
+        int totalStringLength = 0;
 
         int countA = 0;
         int countC = 0;
@@ -39,4 +47,4 @@ class DNA_String{
         int countGC = 0;
         int countGT = 0;
         int countGG = 0;
-}
+};
