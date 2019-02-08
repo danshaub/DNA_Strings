@@ -46,6 +46,11 @@ bool DNA_String::collectData(){
                 countG++;
             if(line[i] == 'T')
                 countT++;
+
+            //bigraph counting
+            if(!isEven&&counBigram&&(i!=line.size()-1)){
+                
+            }
         }
     }
 
