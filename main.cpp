@@ -32,7 +32,7 @@ int main(int argc, char **argv){
             anotherGeneration = false;
         
         cout << endl;
-        
+        dna.~DNA_String();
     }while(anotherGeneration);
 
     return 0;

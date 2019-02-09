@@ -13,6 +13,7 @@ DNA_String::DNA_String(string fileName){
 
 //Destructs object
 DNA_String::~DNA_String(){
+    stream.close();
     cout << "Object deleted\n";
 }
 
