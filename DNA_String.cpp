@@ -1,3 +1,11 @@
+/*
+Name:  Dan Haub
+Student ID#:  2315346
+Chapman Email:  haub@chapman.edu
+Course Number and Section:  CPSC 350-01
+Assignment:  1 - DNA Strings
+*/
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -22,9 +30,16 @@ bool DNA_String::file_is_open(){
     return fileIsOpen;
 }
 
+//Calls functions for collecting data from the text file
+//and for using that data to calculate statistical values
+//required for string generation
+void DNA_String::calculateValues(){
+    collectData();
+    calculateStatistics();
+}
+
 //Counts number of strings, total string lentgh,
-//number of each nucleotide, number of each bigram,
-//and calls function to calculate statistics
+//number of each nucleotide, number of each bigram
 //returns true if data collection succedes
 //returns false if file has not been opened.
 bool DNA_String::collectData(){
@@ -116,23 +131,36 @@ bool DNA_String::collectData(){
         }
     }
 
-    calculateStatistics();
-
     return true;
 }
 
 //Calculates mean, variance, and standard deviation of
 //the length of the DNA strings as well as the probability of
-//each nucleotide and bigram
+//each nucleotide and bigram using values from collectData()
 void DNA_String::calculateStatistics(){
-    lengthMean = double(countNucleotides)/double(countStrings);
+    calculateMean();
+    calculateVariance();
+    calculateStandardDeviation();
+}
+
+//calculates mean string length
+void DNA_String::calculateMean(){
+    lengthMean = double(countNucleotides) / double(countStrings);
+}
+
+//calculates string length variance
+void DNA_String::calculateVariance(){
+
+}
+
+//calculates string length standard deviation
+void DNA_String::calculateStandardDeviation(){
     
 }
 
-    //trims string to contain only uppercase nucleotide letters
-    //will convert any lowercase nucleotide letters to uppercase
-    string DNA_String::trimString(string s)
-{
+//trims string to contain only uppercase nucleotide letters
+//will convert any lowercase nucleotide letters to uppercase
+string DNA_String::trimString(string s){
     string newString = "";
     locale loc;
 

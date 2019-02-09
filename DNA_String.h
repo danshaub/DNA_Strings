@@ -1,3 +1,11 @@
+/*
+Name:  Dan Haub
+Student ID#:  2315346
+Chapman Email:  haub@chapman.edu
+Course Number and Section:  CPSC 350-01
+Assignment:  1 - DNA Strings
+*/
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -7,22 +15,28 @@ class DNA_String{
     public:
         DNA_String(string file);
         ~DNA_String();
-        bool collectData();
         bool file_is_open();
-        //void outputToFile();
-
+        void calculateValues();
         
     private:
-        void calculateStatistics()
-        //bool generate();
+        //TODO: finalize return types through testing.
+        //      Do the bool functions need to be bool?
+        bool collectData();
+        void calculateStatistics();
+        void calculateMean();
+        void calculateVariance();
+        void calculateStandardDeviation();
 
         string trimString(string fileName);
 
         ifstream stream;
         bool fileIsOpen;
 
-        int countStrings = 0; //number of strings of nucleotide characters
-        int countNucleotides = 0; //number of nucleotide characters
+        //number of strings of nucleotide characters
+        int countStrings = 0;
+
+        //number of nucleotide characters
+        int countNucleotides = 0; 
 
         //number of each type of nucleotide
         int countA = 0;
@@ -30,7 +44,8 @@ class DNA_String{
         int countT = 0;
         int countG = 0;
 
-        int countBigrams = 0; //total number of nucleotide bigrams
+        //total number of nucleotide bigrams
+        int countBigrams = 0; 
 
         //number of each type of nucleotide bigram
         int countAA = 0;
@@ -53,10 +68,15 @@ class DNA_String{
         int countGT = 0;
         int countGG = 0;
 
+        //the statistical values of the string lengths
+        //stored as doubles but will be used to find
+        //rounded values at time of string generation
         double lengthMean = 0;
         double lengthVariance = 0;
         double lengthStandardDeviation = 0;
 
+        //the statisical probability of each 
+        //nucleotide type
         double probabilityA = 0;
         double probabilityC = 0;
         double probabilityG = 0;
