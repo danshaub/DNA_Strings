@@ -8,26 +8,31 @@ class DNA_String{
         DNA_String(string file);
         ~DNA_String();
         bool collectData();
+        bool file_is_open();
+        //void outputToFile();
 
         
     private:
-        bool file_is_open();
-        bool calculateStringStats();
-        bool generate();
+        void calculateStatistics()
+        //bool generate();
 
-        string trimString(string s);
+        string trimString(string fileName);
 
         ifstream stream;
-        bool file_is_open;
+        bool fileIsOpen;
 
-        int countStrings = 0;
-        int totalStringLength = 0;
+        int countStrings = 0; //number of strings of nucleotide characters
+        int countNucleotides = 0; //number of nucleotide characters
 
+        //number of each type of nucleotide
         int countA = 0;
         int countC = 0;
         int countT = 0;
         int countG = 0;
 
+        int countBigrams = 0; //total number of nucleotide bigrams
+
+        //number of each type of nucleotide bigram
         int countAA = 0;
         int countAC = 0;
         int countAT = 0;
@@ -47,4 +52,13 @@ class DNA_String{
         int countGC = 0;
         int countGT = 0;
         int countGG = 0;
+
+        double lengthMean = 0;
+        double lengthVariance = 0;
+        double lengthStandardDeviation = 0;
+
+        double probabilityA = 0;
+        double probabilityC = 0;
+        double probabilityG = 0;
+        double probabilityT = 0;
 };

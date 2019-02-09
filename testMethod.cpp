@@ -2,74 +2,90 @@
 #include <fstream>
 #include <string>
 #include <locale>
-#include "DNA_String.h"
 using namespace std;
 
-//Constructs object and opens file
-DNA_String::DNA_String(string fileName){
-    stream.open(fileName);
-    fileIsOpen = stream.is_open(); //confirms file has opened. Run this test before calling functions
+bool collectData();
+string trimString(string s);
+
+int main(){
+
+    collectData();
+    return 0;
 }
 
-//Destructs object
-DNA_String::~DNA_String(){
-    cout << "Object deleted\n";
-}
+bool collectData()
+{
+    ifstream stream;
+    stream.open("test.txt");
+    bool file_is_open = stream.is_open();
 
-//returns true if the file stream has been opened
-bool DNA_String::file_is_open(){
-    return fileIsOpen;
-}
+    int countStrings = 0;
+    int countNucleotides = 0;
 
-//Counts number of strings, total string lentgh,
-//number of each nucleotide, number of each bigram,
-//and calls function to calculate statistics
-//returns true if data collection succedes
-//returns false if file has not been opened.
-bool DNA_String::collectData(){
+    int countA = 0;
+    int countC = 0;
+    int countT = 0;
+    int countG = 0;
 
-    //returns false if file has not been opened.
-    if(!fileIsOpen){
+    int countBigrams = 0;
+
+    int countAA = 0;
+    int countAC = 0;
+    int countAT = 0;
+    int countAG = 0;
+
+    int countCA = 0;
+    int countCC = 0;
+    int countCT = 0;
+    int countCG = 0;
+
+    int countTA = 0;
+    int countTC = 0;
+    int countTT = 0;
+    int countTG = 0;
+
+    int countGA = 0;
+    int countGC = 0;
+    int countGT = 0;
+    int countGG = 0;
+
+    if (!file_is_open)
+    {
         return false;
     }
 
     string line = "";
 
-    //iterates through all lines of text file
     while (getline(stream, line)){
-
         line = trimString(line); //removes all non-nucleotide characters and converts the line to uppercase
 
-        cout << line << endl; //prints each trimmed line checked
+        cout << line << endl; //prints each line checked in the format required
 
-        countStrings++; //increments string counter for later calculations
+        countStrings++;                  //increments string counter for later calculations
         countNucleotides += line.size(); //adds current line size to total for later calculations
-        
-        bool isBigramStart = true; //true if current character is the start of a bigram
 
-        //iterates through all characters in the string
-        for (int i = 0; i < line.size(); i++){
+        bool isBigramStart = true; //flips between on and off to test each pair of nucleotides
+
+        for (int i = 0; i < line.size(); i++)
+        {
             //nucleotide counting:
-            if(line[i] == 'A')
+            if (line[i] == 'A')
                 countA++;
-            if(line[i] == 'C')
+            if (line[i] == 'C')
                 countC++;
-            if(line[i] == 'G')
+            if (line[i] == 'G')
                 countG++;
-            if(line[i] == 'T')
+            if (line[i] == 'T')
                 countT++;
 
             //bigraph counting
-            //control statement tests if current character is 
-            //not the last character in the string and if it is
-            //a beginning character of a bigram
-            if(!(i >= line.size()-1) && isBigramStart){
+            if (!(i >= line.size() - 1) && isBigramStart)
+            {
                 countBigrams++; //adds current bigram to the total bigram count
-                
-                //creates string for the current bigram
+
                 string bigram = "";
-                bigram+= line[i];
-                bigram+= line[i+1];
+                bigram += line[i];
+                bigram += line[i + 1];
 
                 if (!(bigram.compare("AA")))
                     countAA++;
@@ -109,28 +125,43 @@ bool DNA_String::collectData(){
 
                 isBigramStart = false;
             }
-            else{
+            else
+            {
                 isBigramStart = true;
             }
         }
     }
 
-    calculateStatistics();
+    cout << countStrings << endl
+         << countNucleotides << endl
+         << countBigrams << endl << endl
+         << countA << endl
+         << countC << endl
+         << countT << endl
+         << countG << endl << endl
+         << countAA << endl
+         << countAC << endl
+         << countAT << endl
+         << countAG << endl << endl
+         << countCA << endl
+         << countCC << endl
+         << countCT << endl
+         << countCG << endl << endl
+         << countTA << endl
+         << countTC << endl
+         << countTT << endl
+         << countTG << endl << endl
+         << countGA << endl
+         << countGC << endl
+         << countGT << endl
+         << countGG << endl << endl;
+         
+
 
     return true;
 }
 
-//Calculates mean, variance, and standard deviation of
-//the length of the DNA strings as well as the probability of
-//each nucleotide and bigram
-void DNA_String::calculateStatistics(){
-    lengthMean = double(countNucleotides)/double(countStrings);
-    
-}
-
-    //trims string to contain only uppercase nucleotide letters
-    //will convert any lowercase nucleotide letters to uppercase
-    string DNA_String::trimString(string s)
+string trimString(string s)
 {
     string newString = "";
     locale loc;

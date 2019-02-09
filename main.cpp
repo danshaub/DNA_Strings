@@ -5,28 +5,35 @@
 using namespace std;
 
 int main(int argc, char **argv){
-    if(argc < 1){
-        cout << "Please provide a file for analysis\n";
-        return 0;
-    }
+    string fileName = "";
 
-    ifstream myfile ("test.txt");
-
-    if(myfile.is_open()){
-
-        string line = "";
-
-        while(getline(myfile, line)){
-            cout << line << endl;
-            bool isEven = 
-            for(int i = 0; i < line.size(); i++){
-
-            }
+    bool anotherGeneration = false;
+    do{
+        cout << "Please enter the name of a text file\n:  ";
+        cin >> fileName;
+        DNA_String dna(fileName);
+        while(!dna.file_is_open()){
+            dna.~DNA_String();
+            cout << "Your file name was invalid.\n"
+                 << "Please enter the name of a text file\n:  ";
+            cin >> fileName;
+            DNA_String dna(fileName);
         }
+        dna.collectData();
 
-    } else {
-        cout << "file could not open\n";
-    }
+        cout << endl   
+             << "Test another? [y/n]  ";
+        char answer;
+        cin >> answer;
+        
+        if(answer == 'y' || answer == 'Y')
+            anotherGeneration = true;
+        else
+            anotherGeneration = false;
+        
+        cout << endl;
+        
+    }while(anotherGeneration);
 
     return 0;
 }
