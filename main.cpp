@@ -13,21 +13,22 @@ Assignment:  1 - DNA Strings
 using namespace std;
 
 int main(int argc, char **argv){
-    string fileName = "";
+    string fileNameIn = "";
 
     bool anotherGeneration = false;
     do{
         cout << "Please enter the name of a text file\n:  ";
-        cin >> fileName;
-        DNA_String dna(fileName);
-        while(!dna.file_is_open()){
+        cin >> fileNameIn;
+        DNA_String dna(fileNameIn);
+        while(!dna.inStream_is_open()){
             dna.~DNA_String();
             cout << "Your file name was invalid.\n"
                  << "Please enter the name of a text file\n:  ";
-            cin >> fileName;
-            DNA_String dna(fileName);
+            cin >> fileNameIn;
+            DNA_String dna(fileNameIn);
         }
-        dna.collectData();
+        dna.calculateValues();
+        dna.outputToFile();
 
         cout << endl   
              << "Test another? [y/n]  ";
@@ -40,7 +41,6 @@ int main(int argc, char **argv){
             anotherGeneration = false;
         
         cout << endl;
-        dna.~DNA_String();
     }while(anotherGeneration);
 
     return 0;

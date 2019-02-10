@@ -10,24 +10,39 @@ Assignment:  1 - DNA Strings
 #include <fstream>
 #include <string>
 #include <locale>
+#include <math.h>
 #include "DNA_String.h"
 using namespace std;
 
-//Constructs object and opens file
+ofstream DNA_String::outStream = ofstream("danHaub.out", ios::out | ios::app);
+
+//Constructs object and opens input stream with given file name
 DNA_String::DNA_String(string fileName){
-    stream.open(fileName);
-    fileIsOpen = stream.is_open(); //confirms file has opened. Run this test before calling functions
+    inStream.open(fileName);
+    
+    //tests to see if innput stream opened successfully
+    inStreamIsOpen = inStream.is_open();
 }
 
-//Destructs object
+//Destructs object and closes input stream
 DNA_String::~DNA_String(){
-    stream.close();
+    inStream.close();
     cout << "Object deleted\n";
 }
 
-//returns true if the file stream has been opened
-bool DNA_String::file_is_open(){
-    return fileIsOpen;
+//returns true if the input stream has been opened
+bool DNA_String::inStream_is_open(){
+    return inStream.is_open();
+}
+
+//closes output stream
+void DNA_String::closeOutputStream(){
+    outStream.close();
+}
+
+//returns true if the output stream has been opened
+bool DNA_String::outStream_is_open(){
+    return outStream.is_open();
 }
 
 //Calls functions for collecting data from the text file
@@ -38,25 +53,133 @@ void DNA_String::calculateValues(){
     calculateStatistics();
 }
 
+//prints results and newly generated strings to 
+//the static output stream by calling helper functions
+void DNA_String::outputToFile(){
+    if(!outStream_is_open()){
+        cout << "File output failed\n";
+        return;
+    }
+
+    outputStatistics();
+    outputGeneration();
+
+}
+
+//Prints DNA String statistics to the output file
+void DNA_String::outputStatistics(){ //<< "\t:  " << << endl
+    outStream << "\nStatistics for DNA Strings:\n"
+              << "\tTotal number of strings:              " << countStrings << endl
+              << "\t\tMean string length:                   " << lengthMean << endl
+              << "\t\tVariance  of string length:           " << lengthVariance<< endl
+              << "\t\tStandard Deviation of string length:  " << lengthStandardDeviation << endl << endl << endl
+
+
+              << "\tTotal number of Nucleotides:          " << countNucleotides << endl
+              << "\t\tTotal number of A nucleotides:        " << countA << endl
+              << "\t\t\tProbability of A Nucleotides:         " <<probabilityA << endl
+              << "\t\tTotal number of C nucleotides:        " << countC << endl
+              << "\t\t\tProbability of C Nucleotides:         " <<probabilityC << endl
+              << "\t\tTotal number of T nucleotides:        " << countT << endl
+              << "\t\t\tProbability of T Nucleotides:         " <<probabilityT << endl
+              << "\t\tTotal number of G nucleotides:        " << countG << endl
+              << "\t\t\tProbability of G Nucleotides:         " <<probabilityG << endl << endl << endl
+
+
+              << "\tTotal number of Nucleotide Bigrams:   " << countBigrams << endl
+              << "\t\tTotal number of AA Bigrams:           " << countAA << endl
+              << "\t\t\tProbability of AA Bigrams:            " <<probabilityAA << endl
+              << "\t\tTotal number of AC Bigrams:           " << countAC << endl
+              << "\t\t\tProbability of AC Bigrams:            " <<probabilityAC << endl
+              << "\t\tTotal number of AT Bigrams:           " << countAT << endl
+              << "\t\t\tProbability of AT Bigrams:            " <<probabilityAT << endl
+              << "\t\tTotal number of AG Bigrams:           " << countAG << endl
+              << "\t\t\tProbability of AG Bigrams:            " <<probabilityAG << endl << endl
+
+              << "\t\tTotal number of CA Bigrams:           " << countCA << endl
+              << "\t\t\tProbability of CA Bigrams:            " <<probabilityCA << endl
+              << "\t\tTotal number of CC Bigrams:           " << countCC << endl
+              << "\t\t\tProbability of CC Bigrams:            " <<probabilityCC << endl
+              << "\t\tTotal number of CT Bigrams:           " << countCT << endl
+              << "\t\t\tProbability of CT Bigrams:            " <<probabilityCT << endl
+              << "\t\tTotal number of CG Bigrams:           " << countCG << endl
+              << "\t\t\tProbability of CG Bigrams:            " <<probabilityCG << endl << endl
+ 
+              << "\t\tTotal number of TA Bigrams:           " << countTA << endl
+              << "\t\t\tProbability of TA Bigrams:            " <<probabilityTA << endl
+              << "\t\tTotal number of TC Bigrams:           " << countTC << endl
+              << "\t\t\tProbability of TC Bigrams:            " <<probabilityTC << endl
+              << "\t\tTotal number of TT Bigrams:           " << countTT << endl
+              << "\t\t\tProbability of TT Bigrams:            " <<probabilityTT << endl
+              << "\t\tTotal number of TG Bigrams:           " << countTG << endl
+              << "\t\t\tProbability of TG Bigrams:            " <<probabilityTG << endl << endl
+
+              << "\t\tTotal number of GA Bigrams:           " << countGA << endl
+              << "\t\t\tProbability of GA Bigrams:            " <<probabilityGA << endl
+              << "\t\tTotal number of GC Bigrams:           " << countGC << endl
+              << "\t\t\tProbability of GC Bigrams:            " <<probabilityGC << endl
+              << "\t\tTotal number of GT Bigrams:           " << countGT << endl
+              << "\t\t\tProbability of GT Bigrams:            " <<probabilityGT << endl
+              << "\t\tTotal number of GG Bigrams:           " << countGG << endl
+              << "\t\t\tProbability of GG Bigrams:            " <<probabilityGG << endl << endl;
+}
+
+//Prints 1000 lines of randomly generated DNA strings
+//to the output file that will have the same statistics
+//as the input file's strings
+void DNA_String::outputGeneration(){
+    outStream << "String generation:\n\n";
+    const double PI = 3.14159265358979323846;
+
+    double rangeA = probabilityA;
+    double rangeC = probabilityA + probabilityC;
+    double rangeT = probabilityA + probabilityC + probabilityT;
+    
+    for(int i = 1; i <= 1000; i++){
+        double a = 1 - (double(rand())/(RAND_MAX));
+        double b = 1 - (double(rand())/(RAND_MAX));
+        double c = (sqrt(-2 * log(a)) * cos(2 * PI * b));
+        int d = int(lengthStandardDeviation * c + lengthMean);
+
+        string line = "";
+
+        for(int j = 0; j < d; j++){
+            double e = (double(rand())/(RAND_MAX));
+
+            if(e <= rangeA){
+                line += "A";
+            } else if(e <= rangeC){
+                line += "C";
+            } else if(e <= rangeT){
+                line += "T";
+            } else{
+                line += "G";
+            }
+        }
+
+        outStream << line << endl;
+    }
+}
+
 //Counts number of strings, total string lentgh,
 //number of each nucleotide, number of each bigram
-//returns true if data collection succedes
-//returns false if file has not been opened.
-bool DNA_String::collectData(){
+void DNA_String::collectData(){
 
     //returns false if file has not been opened.
-    if(!fileIsOpen){
-        return false;
+    if (!inStreamIsOpen)
+    {
+        cout << "Data collection failed\n";
+        return;
     }
 
     string line = "";
 
     //iterates through all lines of text file
-    while (getline(stream, line)){
+    while (getline(inStream, line)){
 
         line = trimString(line); //removes all non-nucleotide characters and converts the line to uppercase
 
-        cout << line << endl; //prints each trimmed line checked
+        //cout << line << endl; //prints each trimmed line checked
 
         countStrings++; //increments string counter for later calculations
         countNucleotides += line.size(); //adds current line size to total for later calculations
@@ -131,7 +254,7 @@ bool DNA_String::collectData(){
         }
     }
 
-    return true;
+    return;
 }
 
 //Calculates mean, variance, and standard deviation of
@@ -141,6 +264,7 @@ void DNA_String::calculateStatistics(){
     calculateMean();
     calculateVariance();
     calculateStandardDeviation();
+    calculateProbabilities();
 }
 
 //calculates mean string length
@@ -150,12 +274,58 @@ void DNA_String::calculateMean(){
 
 //calculates string length variance
 void DNA_String::calculateVariance(){
+    //resets input stream position to beginning
+    inStream.clear();
+    inStream.seekg(0, inStream.beg);
 
+    double squareSum = 0;
+    string line = "";
+
+    //traverses entire text file and summs 
+    //the squares of the differences between
+    //the length of the current string and the 
+    //mean string length
+    while (getline(inStream, line)){
+        line = trimString(line);
+        cout << line << endl; //prints each trimmed line checked
+        squareSum += pow((line.size()-lengthMean), 2.0);
+    }
+
+    lengthVariance = squareSum/countStrings;
 }
 
 //calculates string length standard deviation
 void DNA_String::calculateStandardDeviation(){
-    
+    lengthStandardDeviation = sqrt(lengthVariance);
+}
+
+//calculates statistical probablilites of 
+//all nucleotide types
+void DNA_String::calculateProbabilities(){
+    probabilityA = double(countA)/countNucleotides;
+    probabilityC = double(countC)/countNucleotides;
+    probabilityT = double(countT)/countNucleotides;
+    probabilityG = double(countG)/countNucleotides;
+
+    probabilityAA = double(countAA)/countBigrams;
+    probabilityAC = double(countAC)/countBigrams;
+    probabilityAT = double(countAT)/countBigrams;
+    probabilityAG = double(countAG)/countBigrams;
+
+    probabilityCA = double(countCA)/countBigrams;
+    probabilityCC = double(countCC)/countBigrams;
+    probabilityCT = double(countCT)/countBigrams;
+    probabilityCG = double(countCG)/countBigrams;
+
+    probabilityTA = double(countTA)/countBigrams;
+    probabilityTC = double(countTC)/countBigrams;
+    probabilityTT = double(countTT)/countBigrams;
+    probabilityTG = double(countTG)/countBigrams;
+
+    probabilityGA = double(countGA)/countBigrams;
+    probabilityGC = double(countGC)/countBigrams;
+    probabilityGT = double(countGT)/countBigrams;
+    probabilityGG = double(countGG)/countBigrams;
 }
 
 //trims string to contain only uppercase nucleotide letters

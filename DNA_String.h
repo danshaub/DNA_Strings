@@ -9,28 +9,36 @@ Assignment:  1 - DNA Strings
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <locale>
+#include <math.h>
 using namespace std;
 
 class DNA_String{
     public:
-        DNA_String(string file);
+        DNA_String(string fileName);
         ~DNA_String();
-        bool file_is_open();
+        bool inStream_is_open();
+        static void closeOutputStream();
+        static bool outStream_is_open();
         void calculateValues();
+        void outputToFile();
         
     private:
-        //TODO: finalize return types through testing.
-        //      Do the bool functions need to be bool?
-        bool collectData();
+        void outputStatistics();
+        void outputGeneration();
+        void collectData();
         void calculateStatistics();
         void calculateMean();
         void calculateVariance();
         void calculateStandardDeviation();
+        void calculateProbabilities();
 
         string trimString(string fileName);
 
-        ifstream stream;
-        bool fileIsOpen;
+        ifstream inStream;
+        bool inStreamIsOpen;
+
+        static ofstream outStream;
 
         //number of strings of nucleotide characters
         int countStrings = 0;
@@ -79,6 +87,28 @@ class DNA_String{
         //nucleotide type
         double probabilityA = 0;
         double probabilityC = 0;
-        double probabilityG = 0;
         double probabilityT = 0;
+        double probabilityG = 0;
+
+        //the statistical probability of each
+        //nucleotide bigram type
+        double probabilityAA = 0;
+        double probabilityAC = 0;
+        double probabilityAT = 0;
+        double probabilityAG = 0;
+
+        double probabilityCA = 0;
+        double probabilityCC = 0;
+        double probabilityCT = 0;
+        double probabilityCG = 0;
+
+        double probabilityTA = 0;
+        double probabilityTC = 0;
+        double probabilityTT = 0;
+        double probabilityTG = 0;
+
+        double probabilityGA = 0;
+        double probabilityGC = 0;
+        double probabilityGT = 0;
+        double probabilityGG = 0;
 };
