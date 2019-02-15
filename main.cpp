@@ -61,5 +61,6 @@ int main(int argc, char **argv){
 
     }while(anotherGeneration);
 
+    NucleotideStringGenerator::CloseOutputStream();
     return 0;
 }
