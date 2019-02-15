@@ -9,7 +9,7 @@ Assignment:  1 - DNA Strings
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "DNA_String.h"
+#include "dna_string.h"
 using namespace std;
 
 int main(int argc, char **argv){
@@ -31,21 +31,21 @@ int main(int argc, char **argv){
             cin >> fileNameIn;
         }
 
-        DNA_String dna(fileNameIn); //tries to create DNA_String object with file name
+        NucleotideStringGenerator dna(fileNameIn); //tries to create NucleotideStringGenerator object with file name
 
         //if the file name is invalid, the object is deleted and
         //another file name is asked for
-        while(!dna.inStream_is_open()){
-            dna.~DNA_String();
+        while(!dna.InStreamIsOpen()){
+            dna.~NucleotideStringGenerator();
             cout << "Your file name was invalid.\n"
                  << "Please enter the name of a text file\n:  ";
             cin >> fileNameIn;
-            DNA_String dna(fileNameIn);
+            NucleotideStringGenerator dna(fileNameIn);
         }
 
 
-        dna.calculateValues();
-        dna.outputToFile();
+        dna.CalculateValues();
+        dna.OutputToFile();
 
         cout << endl   
              << "Test another? [y/n]  ";
@@ -58,7 +58,7 @@ int main(int argc, char **argv){
             anotherGeneration = false;
         
         cout << endl;
-        
+
     }while(anotherGeneration);
 
     return 0;

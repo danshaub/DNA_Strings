@@ -1,4 +1,4 @@
-# DNA_Strings
+# NucleotideStringGenerators
 Data Structures - Assignment 1
 
 
