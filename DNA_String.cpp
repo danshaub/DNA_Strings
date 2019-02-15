@@ -67,7 +67,7 @@ void DNA_String::outputToFile(){
 }
 
 //Prints DNA String statistics to the output file
-void DNA_String::outputStatistics(){ //<< "\t:  " << << endl
+void DNA_String::outputStatistics(){
     outStream << "\nStatistics for DNA Strings:\n"
               << "\tTotal number of strings:              " << countStrings << endl
               << "\t\tMean string length:                   " << lengthMean << endl
@@ -77,51 +77,51 @@ void DNA_String::outputStatistics(){ //<< "\t:  " << << endl
 
               << "\tTotal number of Nucleotides:          " << countNucleotides << endl
               << "\t\tTotal number of A nucleotides:        " << countA << endl
-              << "\t\t\tProbability of A Nucleotides:         " <<probabilityA << endl
+              << "\t\t\tProbability of A Nucleotides:         " <<probabilityA * 100 << "\%" << endl
               << "\t\tTotal number of C nucleotides:        " << countC << endl
-              << "\t\t\tProbability of C Nucleotides:         " <<probabilityC << endl
+              << "\t\t\tProbability of C Nucleotides:         " <<probabilityC * 100 << "\%" << endl
               << "\t\tTotal number of T nucleotides:        " << countT << endl
-              << "\t\t\tProbability of T Nucleotides:         " <<probabilityT << endl
+              << "\t\t\tProbability of T Nucleotides:         " <<probabilityT * 100 << "\%" << endl
               << "\t\tTotal number of G nucleotides:        " << countG << endl
-              << "\t\t\tProbability of G Nucleotides:         " <<probabilityG << endl << endl << endl
+              << "\t\t\tProbability of G Nucleotides:         " <<probabilityG * 100 << "\%" << endl << endl << endl
 
 
               << "\tTotal number of Nucleotide Bigrams:   " << countBigrams << endl
               << "\t\tTotal number of AA Bigrams:           " << countAA << endl
-              << "\t\t\tProbability of AA Bigrams:            " <<probabilityAA << endl
+              << "\t\t\tProbability of AA Bigrams:            " <<probabilityAA * 100 << "\%" << endl
               << "\t\tTotal number of AC Bigrams:           " << countAC << endl
-              << "\t\t\tProbability of AC Bigrams:            " <<probabilityAC << endl
+              << "\t\t\tProbability of AC Bigrams:            " <<probabilityAC * 100 << "\%" << endl
               << "\t\tTotal number of AT Bigrams:           " << countAT << endl
-              << "\t\t\tProbability of AT Bigrams:            " <<probabilityAT << endl
+              << "\t\t\tProbability of AT Bigrams:            " <<probabilityAT * 100 << "\%" << endl
               << "\t\tTotal number of AG Bigrams:           " << countAG << endl
-              << "\t\t\tProbability of AG Bigrams:            " <<probabilityAG << endl << endl
+              << "\t\t\tProbability of AG Bigrams:            " <<probabilityAG * 100 << "\%" << endl << endl
 
               << "\t\tTotal number of CA Bigrams:           " << countCA << endl
-              << "\t\t\tProbability of CA Bigrams:            " <<probabilityCA << endl
+              << "\t\t\tProbability of CA Bigrams:            " <<probabilityCA * 100 << "\%" << endl
               << "\t\tTotal number of CC Bigrams:           " << countCC << endl
-              << "\t\t\tProbability of CC Bigrams:            " <<probabilityCC << endl
+              << "\t\t\tProbability of CC Bigrams:            " <<probabilityCC * 100 << "\%" << endl
               << "\t\tTotal number of CT Bigrams:           " << countCT << endl
-              << "\t\t\tProbability of CT Bigrams:            " <<probabilityCT << endl
+              << "\t\t\tProbability of CT Bigrams:            " <<probabilityCT * 100 << "\%" << endl
               << "\t\tTotal number of CG Bigrams:           " << countCG << endl
-              << "\t\t\tProbability of CG Bigrams:            " <<probabilityCG << endl << endl
+              << "\t\t\tProbability of CG Bigrams:            " <<probabilityCG * 100 << "\%" << endl << endl
  
               << "\t\tTotal number of TA Bigrams:           " << countTA << endl
-              << "\t\t\tProbability of TA Bigrams:            " <<probabilityTA << endl
+              << "\t\t\tProbability of TA Bigrams:            " <<probabilityTA * 100 << "\%" << endl
               << "\t\tTotal number of TC Bigrams:           " << countTC << endl
-              << "\t\t\tProbability of TC Bigrams:            " <<probabilityTC << endl
+              << "\t\t\tProbability of TC Bigrams:            " <<probabilityTC * 100 << "\%" << endl
               << "\t\tTotal number of TT Bigrams:           " << countTT << endl
-              << "\t\t\tProbability of TT Bigrams:            " <<probabilityTT << endl
+              << "\t\t\tProbability of TT Bigrams:            " <<probabilityTT * 100 << "\%" << endl
               << "\t\tTotal number of TG Bigrams:           " << countTG << endl
-              << "\t\t\tProbability of TG Bigrams:            " <<probabilityTG << endl << endl
+              << "\t\t\tProbability of TG Bigrams:            " <<probabilityTG * 100 << "\%" << endl << endl
 
               << "\t\tTotal number of GA Bigrams:           " << countGA << endl
-              << "\t\t\tProbability of GA Bigrams:            " <<probabilityGA << endl
+              << "\t\t\tProbability of GA Bigrams:            " <<probabilityGA * 100 << "\%" << endl
               << "\t\tTotal number of GC Bigrams:           " << countGC << endl
-              << "\t\t\tProbability of GC Bigrams:            " <<probabilityGC << endl
+              << "\t\t\tProbability of GC Bigrams:            " <<probabilityGC * 100 << "\%" << endl
               << "\t\tTotal number of GT Bigrams:           " << countGT << endl
-              << "\t\t\tProbability of GT Bigrams:            " <<probabilityGT << endl
+              << "\t\t\tProbability of GT Bigrams:            " <<probabilityGT * 100 << "\%" << endl
               << "\t\tTotal number of GG Bigrams:           " << countGG << endl
-              << "\t\t\tProbability of GG Bigrams:            " <<probabilityGG << endl << endl;
+              << "\t\t\tProbability of GG Bigrams:            " <<probabilityGG * 100 << "\%" << endl << endl;
 }
 
 //Prints 1000 lines of randomly generated DNA strings
@@ -131,18 +131,32 @@ void DNA_String::outputGeneration(){
     outStream << "String generation:\n\n";
     const double PI = 3.14159265358979323846;
 
+    //calculates ranges for the different nucleotide types.
+    //If a random number generated falls within the range
+    //of a specific nucleotide, the new character associated
+    //with that random number becomes the range's nucleotide
     double rangeA = probabilityA;
     double rangeC = probabilityA + probabilityC;
     double rangeT = probabilityA + probabilityC + probabilityT;
     
     for(int i = 1; i <= 1000; i++){
+        //generates two random numbers between 0 and 1
         double a = 1 - (double(rand())/(RAND_MAX));
         double b = 1 - (double(rand())/(RAND_MAX));
+        
+        //uses a and b to generate a random number between
+        //-1 and 1 with a gaussian probability centered at 0
         double c = (sqrt(-2 * log(a)) * cos(2 * PI * b));
+
+        //c to generate a random string length d that
+        //follows a gaussian curve witht the same standard deviation
+        //and mean as the string lengths of the input file
         int d = int(lengthStandardDeviation * c + lengthMean);
 
         string line = "";
 
+        //uses ranges calculated above to populate
+        //the new string of length d
         for(int j = 0; j < d; j++){
             double e = (double(rand())/(RAND_MAX));
 

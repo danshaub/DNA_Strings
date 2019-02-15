@@ -15,24 +15,63 @@ using namespace std;
 
 class DNA_String{
     public:
+        //Constructs object and opens input stream with given file name
         DNA_String(string fileName);
+
+        //Destructs object and closes input stream
         ~DNA_String();
+
+        //returns true if the input stream has been opened
         bool inStream_is_open();
+
+        //closes output stream
         static void closeOutputStream();
+
+        //returns true if the output stream has been opened
         static bool outStream_is_open();
+
+        //Calls functions for collecting data from the text file
+        //and for using that data to calculate statistical values
+        //required for string generation
         void calculateValues();
+
+        //prints results and newly generated strings to 
+        //the static output stream by calling helper functions
         void outputToFile();
         
     private:
+        //Prints DNA String statistics to the output file
         void outputStatistics();
+
+        //Prints 1000 lines of randomly generated DNA strings
+        //to the output file that will have the same statistics
+        //as the input file's strings        
         void outputGeneration();
+
+        //Counts number of strings, total string lentgh,
+        //number of each nucleotide, number of each bigram
         void collectData();
+
+        //Calculates mean, variance, and standard deviation of
+        //the length of the DNA strings as well as the probability of
+        //each nucleotide and bigram using values from collectData()
         void calculateStatistics();
+
+        //calculates mean string length
         void calculateMean();
+
+        //calculates string length variance
         void calculateVariance();
+
+        //calculates string length standard deviation
         void calculateStandardDeviation();
+
+        //calculates statistical probablilites of 
+        //all nucleotide types
         void calculateProbabilities();
 
+        //trims string to contain only uppercase nucleotide letters
+        //will convert any lowercase nucleotide letters to uppercase
         string trimString(string fileName);
 
         ifstream inStream;
