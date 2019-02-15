@@ -13,141 +13,141 @@ Assignment:  1 - DNA Strings
 #include <math.h>
 using namespace std;
 
-class DNA_String{
+class NucleotideStringGenerator{
     public:
         //Constructs object and opens input stream with given file name
-        DNA_String(string fileName);
+        NucleotideStringGenerator(string fileName);
 
         //Destructs object and closes input stream
-        ~DNA_String();
+        ~NucleotideStringGenerator();
 
         //returns true if the input stream has been opened
-        bool inStream_is_open();
+        bool InStreamIsOpen();
 
         //closes output stream
-        static void closeOutputStream();
+        static void CloseOutputStream();
 
         //returns true if the output stream has been opened
-        static bool outStream_is_open();
+        static bool OutStreamIsOpen();
 
         //Calls functions for collecting data from the text file
         //and for using that data to calculate statistical values
         //required for string generation
-        void calculateValues();
+        void CalculateValues();
 
         //prints results and newly generated strings to 
         //the static output stream by calling helper functions
-        void outputToFile();
+        void OutputToFile();
         
     private:
         //Prints DNA String statistics to the output file
-        void outputStatistics();
+        void OutputStatistics();
 
         //Prints 1000 lines of randomly generated DNA strings
         //to the output file that will have the same statistics
         //as the input file's strings        
-        void outputGeneration();
+        void OutputGeneration();
 
         //Counts number of strings, total string lentgh,
         //number of each nucleotide, number of each bigram
-        void collectData();
+        void CollectData();
 
         //Calculates mean, variance, and standard deviation of
         //the length of the DNA strings as well as the probability of
-        //each nucleotide and bigram using values from collectData()
-        void calculateStatistics();
+        //each nucleotide and bigram using values from CollectData()
+        void CalculateStatistics();
 
         //calculates mean string length
-        void calculateMean();
+        void CalculateMean();
 
         //calculates string length variance
-        void calculateVariance();
+        void CalculateVariance();
 
         //calculates string length standard deviation
-        void calculateStandardDeviation();
+        void CalculateStandardDeviation();
 
         //calculates statistical probablilites of 
         //all nucleotide types
-        void calculateProbabilities();
+        void CalculateProbabilities();
 
         //trims string to contain only uppercase nucleotide letters
         //will convert any lowercase nucleotide letters to uppercase
-        string trimString(string fileName);
+        string PrepareString(string fileName);
 
-        ifstream inStream;
-        bool inStreamIsOpen;
+        ifstream in_stream;
+        bool in_stream_is_open;
 
-        static ofstream outStream;
+        static ofstream out_stream;
 
         //number of strings of nucleotide characters
-        int countStrings = 0;
+        int count_strings = 0;
 
         //number of nucleotide characters
         int countNucleotides = 0; 
 
         //number of each type of nucleotide
-        int countA = 0;
-        int countC = 0;
-        int countT = 0;
-        int countG = 0;
+        int count_A = 0;
+        int count_C = 0;
+        int count_T = 0;
+        int count_G = 0;
 
         //total number of nucleotide bigrams
-        int countBigrams = 0; 
+        int count_bigrams = 0; 
 
         //number of each type of nucleotide bigram
-        int countAA = 0;
-        int countAC = 0;
-        int countAT = 0;
-        int countAG = 0;
+        int count_AA = 0;
+        int count_AC = 0;
+        int count_AT = 0;
+        int count_AG = 0;
 
-        int countCA = 0;
-        int countCC = 0;
-        int countCT = 0;
-        int countCG = 0;
+        int count_CA = 0;
+        int count_CC = 0;
+        int count_CT = 0;
+        int count_CG = 0;
 
-        int countTA = 0;
-        int countTC = 0;
-        int countTT = 0;
-        int countTG = 0;
+        int count_TA = 0;
+        int count_TC = 0;
+        int count_TT = 0;
+        int count_TG = 0;
 
-        int countGA = 0;
-        int countGC = 0;
-        int countGT = 0;
-        int countGG = 0;
+        int count_GA = 0;
+        int count_GC = 0;
+        int count_GT = 0;
+        int count_GG = 0;
 
         //the statistical values of the string lengths
         //stored as doubles but will be used to find
         //rounded values at time of string generation
-        double lengthMean = 0;
-        double lengthVariance = 0;
-        double lengthStandardDeviation = 0;
+        double length_mean = 0;
+        double length_variance = 0;
+        double length_standard_deviation = 0;
 
         //the statisical probability of each 
         //nucleotide type
-        double probabilityA = 0;
-        double probabilityC = 0;
-        double probabilityT = 0;
-        double probabilityG = 0;
+        double probability_A = 0;
+        double probability_C = 0;
+        double probability_T = 0;
+        double probability_G = 0;
 
         //the statistical probability of each
         //nucleotide bigram type
-        double probabilityAA = 0;
-        double probabilityAC = 0;
-        double probabilityAT = 0;
-        double probabilityAG = 0;
+        double probability_AA = 0;
+        double probability_AC = 0;
+        double probability_AT = 0;
+        double probability_AG = 0;
 
-        double probabilityCA = 0;
-        double probabilityCC = 0;
-        double probabilityCT = 0;
-        double probabilityCG = 0;
+        double probability_CA = 0;
+        double probability_CC = 0;
+        double probability_CT = 0;
+        double probability_CG = 0;
 
-        double probabilityTA = 0;
-        double probabilityTC = 0;
-        double probabilityTT = 0;
-        double probabilityTG = 0;
+        double probability_TA = 0;
+        double probability_TC = 0;
+        double probability_TT = 0;
+        double probability_TG = 0;
 
-        double probabilityGA = 0;
-        double probabilityGC = 0;
-        double probabilityGT = 0;
-        double probabilityGG = 0;
+        double probability_GA = 0;
+        double probability_GC = 0;
+        double probability_GT = 0;
+        double probability_GG = 0;
 };

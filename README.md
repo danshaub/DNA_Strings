@@ -1,4 +1,4 @@
-# NucleotideStringGenerators
+# NucleotideStringGeneratorrs
 Data Structures: DNA String Project
 
 1. Identifying Information
@@ -33,6 +33,6 @@ Data Structures: DNA String Project
 
 5. Instructions for running the assignment
     * git clone from repository
-    * cd to DNA_Strings folder
+    * cd to NucleotideStringGenerators folder
     * input "g++ *.cpp"
     * input "./a.out \[string: fileName\]
